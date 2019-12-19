@@ -4,8 +4,9 @@ const {SaveFamousQuote} = require('../../services/famous_quote');
 
 let get = async (req, res) => {
     let quote = await random_quote();
-    let image = await text_to_image(quote.data.content);
-    SaveFamousQuote(quote.data, image.data).then( famouseQuote => {
+    let images = await text_to_image(quote.data.content);
+
+    SaveFamousQuote(quote.data, images[1].url).then( famouseQuote => {
         return res.status(200).json(famouseQuote);
     }).catch(err=> {
         return res.status(200).json(err);
